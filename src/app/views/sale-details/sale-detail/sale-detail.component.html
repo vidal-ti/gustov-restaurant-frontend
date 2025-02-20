@@ -1,0 +1,98 @@
+<p-dialog 
+    [header]="entity.Id > 0? 'Editar Venta detalle' : 'Agregar Venta detalle'" 
+    [modal]="true"
+    [(visible)]="visible" 
+    [style]="{ width: '30rem' }">
+    <form #userForm="ngForm" role="form">
+        <div class="formgrid grid">
+            <div class="col-12 field">
+                <label for="cantidad">Cantidad *</label> <br>
+                <p-inputNumber 
+                    name="cantidad"
+                    [(ngModel)]="entity.Quantity" 
+                    mode="decimal" 
+                    autofocus
+                    required #cantidad="ngModel"
+                    inputId="withoutgrouping" 
+                    [useGrouping]="false" /> 
+                <div *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)">
+                    <p-tag severity="danger" value="Se requiere cantidad"/>
+                </div>
+            </div>
+            <div class="col-12 field">
+                <label for="unitPrice">Precio unitario *</label> <br>
+                <p-inputNumber 
+                    name="unitPrice"
+                    [(ngModel)]="entity.UnitPrice" 
+                    mode="decimal" 
+                    required #unitPrice="ngModel"
+                    inputId="withoutgrouping" 
+                    [useGrouping]="false" /> 
+                <div *ngIf="unitPrice.invalid && (unitPrice.dirty || unitPrice.touched)">
+                    <p-tag severity="danger" value="Se requiere precio unitario"/>
+                </div>
+            </div>
+            <div class="col-12 field">
+                <label for="subTotal">Sub Total *</label> <br>
+                <p-inputNumber 
+                    name="subTotal"
+                    [(ngModel)]="entity.SubTotal" 
+                    mode="decimal" 
+                    required #subTotal="ngModel"
+                    inputId="withoutgrouping" 
+                    [useGrouping]="false" /> 
+                <div *ngIf="subTotal.invalid && (subTotal.dirty || subTotal.touched)">
+                    <p-tag severity="danger" value="Se requiere sub total"/>
+                </div>
+            </div>
+            <div class="col-12 field">
+                <label for="sale">Venta *</label> <br>
+                <p-dropdown 
+                name="sale"
+                required #sale="ngModel" 
+                [options]="saleData" 
+                [(ngModel)]="entity.Sale" 
+                optionLabel="name" 
+                optionValue="value"
+                placeholder="Seleccione una Venta" />
+                <div *ngIf="sale.invalid && (sale.dirty || sale.touched)">
+                    <p-tag severity="danger" value="Se requiere venta"/>
+                </div>
+            </div>
+            <div class="col-12 field">
+                <label for="dish">Plato *</label> <br>
+                <p-dropdown 
+                name="dish"
+                required #dish="ngModel" 
+                [options]="dishData" 
+                [(ngModel)]="entity.Dish" 
+                optionLabel="name" 
+                optionValue="value"
+                placeholder="Seleccione un plato" />
+                <div *ngIf="dish.invalid && (dish.dirty || dish.touched)">
+                    <p-tag severity="danger" value="Se requiere plato"/>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <ng-template pTemplate="footer">
+        <button 
+            pButton 
+            pRipple 
+            icon="pi pi-times" 
+            label="Cancelar"
+            class="p-button-sm p-button-danger"
+            (click)="visible = false">
+        </button>
+        <button 
+            pButton 
+            pRipple 
+            icon="pi pi-save" 
+            label="Guardar"
+            [disabled]="isBtnSave"
+            class="p-button-sm"
+            (click)="btnSave()">
+        </button>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,79 @@
+<p-dialog 
+    [header]="entity.Id > 0? 'Editar Venta' : 'Agregar Venta'" 
+    [modal]="true"
+    [(visible)]="visible" 
+    [style]="{ width: '30rem' }">
+    <form #saleForm="ngForm" role="form">
+        <div class="formgrid grid">
+            <div class="col-12 field">
+                <label for="user">Nombre de Usuario *</label> <br>
+                <p-dropdown 
+                name="user"
+                required #user="ngModel" 
+                [options]="cities" 
+                [(ngModel)]="entity.AppUser" 
+                optionLabel="name" 
+                optionValue="value"
+                placeholder="Seleccionar usuario" />
+                <div *ngIf="user.invalid && (user.dirty || user.touched)">
+                    <p-tag severity="danger" value="Se requiere nombre de usuario"/>
+                </div>
+            </div>
+            <div class="col-12 field">
+                <label for="status">Estado *</label> <br>
+                <p-dropdown 
+                name="status"
+                required #status="ngModel" 
+                [options]="statusData" 
+                [(ngModel)]="entity.Status" 
+                optionLabel="name" 
+                optionValue="value"
+                placeholder="Seleccionar estado" />
+                <div *ngIf="status.invalid && (status.dirty || status.touched)">
+                    <p-tag severity="danger" value="Se requiere estado"/>
+                </div>
+            </div>
+            <div class="col-12 field">
+                <label for="total">Total *</label> <br>
+                <p-inputNumber 
+                    name="total"
+                    [(ngModel)]="entity.Total" 
+                    mode="decimal" 
+                    required #total="ngModel"
+                    inputId="withoutgrouping" 
+                    [useGrouping]="false" /> 
+                <div *ngIf="total.invalid && (total.dirty || total.touched)">
+                    <p-tag severity="danger" value="Se requiere total"/>
+                </div>
+            </div>
+            <div class="col-12 field">
+                <label for="created">Fecha de Creación *</label><br>
+                <p-calendar name="created"  required #created="ngModel"
+                [(ngModel)]="entity.CreatedAt"/>
+                <div *ngIf="created.invalid && (created.dirty || created.touched)">
+                    <p-tag severity="danger" value="Se requiere fecha de creación"/>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <ng-template pTemplate="footer">
+        <button 
+            pButton 
+            pRipple 
+            icon="pi pi-times" 
+            label="Cancelar"
+            class="p-button-sm p-button-danger"
+            (click)="visible = false">
+        </button>
+        <button 
+            pButton 
+            pRipple 
+            icon="pi pi-save" 
+            label="Guardar"
+            [disabled]="isBtnSave"
+            class="p-button-sm"
+            (click)="btnSave()">
+        </button>
+    </ng-template>
+</p-dialog>

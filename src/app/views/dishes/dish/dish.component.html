@@ -1,0 +1,76 @@
+<p-dialog 
+    [header]="entity.Id > 0? 'Editar Plato' : 'Agregar Plato'" 
+    [modal]="true"
+    [(visible)]="visible" 
+    [style]="{ width: '30rem' }">
+    <form #userForm="ngForm" role="form">
+        <div class="formgrid grid">
+            <div class="col-12 field">
+                <label for="nameUser">Nombre del plato *</label>
+                <input name="nameUser" autofocus [(ngModel)]="entity.Name" required #name="ngModel" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                    <p-tag severity="danger" value="El nombre del plato es obligatorio"/>
+                </div>
+            </div>
+            <div class="col-12 field">
+                <label for="price">Precio *</label> <br>
+                <p-inputNumber 
+                    name="price"
+                    [(ngModel)]="entity.Price" 
+                    mode="decimal" 
+                    required #price="ngModel"
+                    inputId="withoutgrouping" 
+                    [useGrouping]="false" /> 
+                <div *ngIf="price.invalid && (price.dirty || price.touched)">
+                    <p-tag severity="danger" value="Se requiere precio"/>
+                </div>
+            </div>
+            <div class="col-12 field">
+                <label for="description">Descripción *</label> <br>
+                <textarea 
+                    rows="5"
+                    cols="30" 
+                    name="description"
+                    pInputTextarea 
+                    required #description="ngModel"
+                    [(ngModel)]="entity.Description">
+                </textarea>
+                <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                    <p-tag severity="danger" value="Se requiere descripción"/>
+                </div>
+            </div>
+            <div class="col-12 field">
+                <p-checkbox 
+                    name="isAvailable"
+                    [(ngModel)]="entity.IsAvailable" 
+                    label="Disponible"
+                    [binary]="true" 
+                    inputId="binary" />
+            </div>
+            <div class="col-12 field">
+                <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+                <img *ngIf="imagePreview" [src]="imagePreview" alt="Preview" width="200">
+            </div>
+        </div>
+    </form>
+
+    <ng-template pTemplate="footer">
+        <button 
+            pButton 
+            pRipple 
+            icon="pi pi-times" 
+            label="Cancelar"
+            class="p-button-sm p-button-danger"
+            (click)="visible = false">
+        </button>
+        <button 
+            pButton 
+            pRipple 
+            icon="pi pi-save" 
+            label="Guardar"
+            [disabled]="isBtnSave"
+            class="p-button-sm"
+            (click)="btnSave()">
+        </button>
+    </ng-template>
+</p-dialog>

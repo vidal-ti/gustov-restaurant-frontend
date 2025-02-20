@@ -1,0 +1,84 @@
+<p-card>
+    <div class="flex justify-content-end flex-wrap">
+        <div class="flex align-items-center">
+            <button 
+                pButton 
+                pRipple 
+                icon="pi pi-plus" 
+                label="Agregar Usuario"
+                class="p-button-sm"
+                (click)="createUser()">
+            </button>&nbsp;
+        </div>
+    </div>
+    <p-divider />
+    <p-table 
+        #dt2
+        [value]="users" 
+        styleClass="p-datatable-striped p-datatable-gridlines p-datatable-sm" 
+        [paginator]="true"
+        [rows]="15"
+        [globalFilterFields]="['Name', 'UserName']"
+        [rowsPerPageOptions]="[15, 30, 50]">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <p-iconField iconPosition="left" class="ml-auto">
+                    <p-inputIcon>
+                        <i class="pi pi-search" style="margin-right: 8px;"></i>
+                    </p-inputIcon>
+                    <input 
+                        pInputText 
+                        type="text" 
+                        class="p-inputtext-sm"
+                        (input)="dt2.filterGlobal($event.target.value, 'contains')" 
+                        placeholder="Buscar nombre de usuario" />
+                </p-iconField>
+            </div>
+        </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Nombre de Usuario</th>
+                    <th class="text-center">Contraseña</th>
+                    <th class="text-center">Rol</th>
+                    <th class="text-center">Activo</th>
+                    <th class="text-center">Fecha de Creación</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>{{item.Name}}</td>
+                    <td>{{item.UserName}}</td>
+                    <td>{{item.Password}}</td>
+                    <td class="text-center">{{getRole(item.Role)}}</td>
+                    <td class="text-center">
+                        <input type="checkbox" [disabled]="true" [ngModel]="item.IsActive">
+                    </td>
+                    <td class="text-center">{{item.Created | date:'dd/MM/yyyy' }}</td>
+                    <td class="text-center">
+                        <button 
+                            pButton 
+                            pRipple 
+                            icon="pi pi-pencil" 
+                            class="p-button-sm p-button-success"
+                            pTooltip="Editar" 
+                            tooltipPosition="top" 
+                            (click)="selectEdit(item)">
+                        </button>&nbsp;
+                        <button 
+                            pButton 
+                            pRipple 
+                            icon="pi pi-trash" 
+                            pTooltip="Eliminar" 
+                            tooltipPosition="top"
+                            class="p-button-sm p-button-danger"
+                            (click)="selectDelete(item)">
+                        </button>
+                    </td>
+                </tr>
+            </ng-template>
+    </p-table>
+</p-card>
+<app-user></app-user>
+<p-confirmDialog />

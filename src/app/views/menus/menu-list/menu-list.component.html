@@ -1,0 +1,24 @@
+<p-card>
+    <div class="grid">
+        <div class="col-4 md:col-4" *ngFor="let item of images">
+            <div class="card m-3 border-1 surface-border">
+                <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+                    <div class="flex align-items-center">
+                        <i class="pi pi-tag mr-2"></i>
+                        <span class="font-semibold">Bolivia</span>
+                    </div>
+                    <p-tag [severity]="item.Dish?.IsAvailable? 'success':'danger'" [value]="item.Dish?.IsAvailable? 'Disponible':'No Disponible'"/>
+                </div>
+                <div class="flex flex-column align-items-center text-center mb-3">
+                    <img [src]="item.Image" [alt]="item.Dish?.Name" class="w-9 shadow-2 my-3 mx-0"/>
+                    <div class="text-2xl font-bold">{{item.Dish?.Name}}</div>
+                    <div class="mb-3">{{item.Dish?.Description}}</div>
+                    <p-rating [ngModel]="rating" [readonly]="true" [cancel]="false"></p-rating>
+                </div>
+                <div class="flex align-items-center justify-content-between">
+                    <span class="text-2xl font-semibold">{{item.Dish?.Price}}Bs</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-card>
