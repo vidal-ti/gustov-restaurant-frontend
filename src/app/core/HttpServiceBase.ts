@@ -4,7 +4,6 @@ import { catchError, Observable, tap, throwError } from "rxjs";
 import * as data from '../../assets/Config/config.json';
 export abstract class HttpServiceBase {
     genericError = "";
-    // headers :any = { 'content-type': 'application/json'}  
     urlFormat: any;
     urlPrimary: string;
     urlSecondary: string;
@@ -16,8 +15,7 @@ export abstract class HttpServiceBase {
     getConfiguration(key) {
         let model = data;
         let kk = model['httpServiceConfig']['serviceHost'];
-        // console.log(kk);
-        
+
         this.urlFormat = kk;
     }
 
@@ -28,7 +26,7 @@ export abstract class HttpServiceBase {
     formatUrl(name){
        return this.urlSecondary = this.urlPrimary+'/'+name;
     }
-  
+
     httpPost(object: any, url: string): Observable<any> {
         const headers = { 'content-type': 'application/json'}  
         let body = JSON.stringify(object);
@@ -43,8 +41,8 @@ export abstract class HttpServiceBase {
     }
 
     httpGet(id: number, url: string): Observable<any>{
-        const headers = { 'content-type': 'application/json'} 
-        // let params = new HttpParams().set('id', 3);
+        const headers = { 'content-type': 'application/json'}
+
         return this.http.get(url+'/'+id, {'headers': headers}).pipe(
             tap(res => { 
                 return res; 
@@ -56,8 +54,8 @@ export abstract class HttpServiceBase {
     }
 
     httpGetOnly(url: string): Observable<any>{
-        const headers = { 'content-type': 'application/json'} 
-        // let params = new HttpParams().set('id', 3);
+        const headers = { 'content-type': 'application/json'}
+
         return this.http.get(url, {'headers': headers}).pipe(
             tap(res => { 
                 return res; 
@@ -69,8 +67,8 @@ export abstract class HttpServiceBase {
     }
 
     httpDelete(id: number, url: string): Observable<any>{
-        const headers = { 'content-type': 'application/json'} 
-        // let params = new HttpParams().set('id', 3);
+        const headers = { 'content-type': 'application/json'}
+
         return this.http.delete(url+'/'+id, {'headers': headers}).pipe(
             tap(res => { 
                 return res; 
@@ -82,10 +80,8 @@ export abstract class HttpServiceBase {
     }
 
     httpSearch(url: string): Observable<any> {
-        const headers = { 'content-type': 'application/json'}  
-        // let body = JSON.stringify(object);
-        // console.log(url);
-        
+        const headers = { 'content-type': 'application/json'}
+
         return this.http.get(url, {'headers':headers}).pipe(
             tap(res => { 
                 return res; 

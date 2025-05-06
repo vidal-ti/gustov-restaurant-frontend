@@ -1,5 +1,5 @@
 {
     "httpServiceConfig":{
-        "serviceHost": "http://localhost:3001"
+        "serviceHost": "http://localhost:3000"
     }
 }

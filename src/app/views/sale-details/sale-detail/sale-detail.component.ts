@@ -64,7 +64,7 @@ export class SaleDetailComponent implements OnInit{
     this.saleService.search().subscribe({
       next: result => {
         result.forEach((user: any) => {
-          this.saleData.push({ name: user.AppUser.Name, value: user });
+          this.saleData.push({ name: user.User.Name, value: user });
         }); 
       }, error : err =>{}
     });

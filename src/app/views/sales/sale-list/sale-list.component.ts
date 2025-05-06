@@ -41,9 +41,10 @@ export class SaleListComponent implements OnInit{
     this.dishComponent.load(event.Id);
   }
 
-  selectDelete(event){
+  selectDelete(event: SaleModel){
+    console.log(event);
+
     this.confirmationService.confirm({
-      target: event.target as EventTarget,
       message: '¿Está seguro de que desea eliminar este elemento?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
@@ -51,7 +52,7 @@ export class SaleListComponent implements OnInit{
       rejectIcon:"none",
       rejectButtonStyleClass:"p-button-text",
       accept: () => {
-        this.userService.delete(event.AppUserId).subscribe({
+        this.userService.delete(event.Id).subscribe({
           next: () => {
             this.search()
             this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Request submitted' });
